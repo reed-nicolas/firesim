@@ -6,6 +6,13 @@ Setting up the FireSim Repo
 Lets fetch FireSim's sources with Chipyard. Chipyard provides all the necessary target
 designs (e.g. RISC-V SoCs) and software (e.g. Linux) used for the rest of this guide.
 
+.. important::
+
+    The commands below should be run **on your FireSim manager instance** (the EC2
+    instance you launched in the previous section), not on your local laptop or another
+    machine. Even if you already have a Chipyard checkout elsewhere, you need a fresh
+    clone on the manager instance for the AWS flow.
+
 .. note::
 
     This guide was built using Chipyard version |cy_docs_version|. It is recommended to
