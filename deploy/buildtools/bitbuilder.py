@@ -244,7 +244,7 @@ class F2BitBuilder(BitBuilder):
             local_dir=local_awsfpga_dir,
             remote_dir=dest_f2_platform_dir,
             ssh_opts="-o StrictHostKeyChecking=no",
-            exclude=["hdk/cl/developer_designs/cl_*", ".git"],
+            exclude=["hdk/cl/developer_designs/cl_*", ".git", "hdk/common/ip", "hdk/common/shell_stable/hlx"],
             extra_opts="-l",
             capture=True,
         )
@@ -253,7 +253,7 @@ class F2BitBuilder(BitBuilder):
         rsync_cap = rsync_project(
             local_dir=f"{local_awsfpga_dir}/{fpga_build_postfix}/*",
             remote_dir=f"{dest_awsfpga_dir}/{fpga_build_postfix}",
-            exclude=["build/checkpoints", ".git"],
+            exclude=["build/checkpoints", ".git", "hdk/common/ip", "hdk/common/shell_stable/hlx"],
             ssh_opts="-o StrictHostKeyChecking=no",
             extra_opts="-l",
             capture=True,
