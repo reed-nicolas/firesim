@@ -153,7 +153,7 @@ class F2Config
           beatBytes = 8,
           idBits    = 16,
         )
-      case HostMemNumChannels          => 4
+      case HostMemNumChannels          => 1
       case PreLinkCircuitPath          => Some("firesim_top")
       case PostLinkCircuitPath         => Some("WRAPPER/CL/firesim_top")
     }) ++ new SimConfig)
