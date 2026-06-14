@@ -1121,15 +1121,23 @@ class RuntimeConfig:
 
         self.args = args
 
-        # construct pythonic db of hardware configurations available to us at
-        # runtime.
-        self.runtimehwdb = RuntimeHWDB(args.hwdbconfigfile)
-        rootLogger.debug(self.runtimehwdb)
-
         self.innerconf = InnerRuntimeConfiguration(
             args.runtimeconfigfile, args.overrideconfigdata
         )
         rootLogger.debug(self.innerconf)
+
+        self.run_farm = self.innerconf.run_farm_dispatcher
+
+        # for enumeration check if platform actually needs it
+        if args.task == "enumeratefpgas" and not self.run_farm.needs_fpga_enumeration():
+            rootLogger.info("Skipping FPGA enumeration - platform discover BDF dynamically")
+            return
+
+        
+        # construct pythonic db of hardware configurations available to us at
+        # runtime.
+        self.runtimehwdb = RuntimeHWDB(args.hwdbconfigfile)
+        rootLogger.debug(self.runtimehwdb)       
 
         self.runtime_build_recipes = RuntimeBuildRecipes(
             args.buildrecipesconfigfile,
@@ -1138,8 +1146,6 @@ class RuntimeConfig:
             self.innerconf.metasimulation_only_vcs_plusargs,
         )
         rootLogger.debug(self.runtime_build_recipes)
-
-        self.run_farm = self.innerconf.run_farm_dispatcher
 
         # setup workload config obj, aka a list of workloads that can be assigned
         # to a server
@@ -1226,7 +1232,11 @@ class RuntimeConfig:
 
     def enumerate_fpgas(self) -> None:
         """directly called by top-level enumeratefpgas command."""
-        use_mock_instances_for_testing = False
+        # if platform dosnt need enum, return
+        if not hasattr(self, 'firesim_topology_with_passes'):
+            return
+        
+        use_mock_instances_for_testing = False        
         self.firesim_topology_with_passes.enumerate_fpgas_passes(
             use_mock_instances_for_testing
         )
@@ -1249,3 +1259,5 @@ class RuntimeConfig:
         self.firesim_topology_with_passes.run_workload_passes(
             use_mock_instances_for_testing
         )
+
+

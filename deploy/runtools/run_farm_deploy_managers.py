@@ -65,6 +65,10 @@ class InstanceDeployManager(metaclass=abc.ABCMeta):
 
     parent_node: Inst
     nbd_tracker: Optional[NBDTracker]
+    # Not all platforms need enumeration
+    # but the guide still say to do enumeration - which will fail for those platforms
+    # make knob to skip for platforms that dynamically checks BDF
+    NEED_ENUMERATION: bool = True
 
     def __init__(self, parent_node: Inst) -> None:
         """
@@ -1354,6 +1358,7 @@ class XilinxVCU118InstanceDeployManager(InstanceDeployManager):
     garnet shell."""
 
     PLATFORM_NAME: Optional[str]
+    NEED_ENUMERATION = False
 
     def __init__(self, parent_node: Inst) -> None:
         super().__init__(parent_node)
