@@ -53,7 +53,7 @@ def get_f2_ami_name() -> str:
             print(
                 "Unknown $USER (expected ubuntu/amzn). Defaulting to the Ubuntu AWS EC2 AMI."
             )
-        return "FPGA Developer AMI (Ubuntu) - 1.17.0   -prod-rhng4b6alkhdq"
+        return "FPGA Developer AMI (Ubuntu) - 1.19.1-prod-rhng4b6alkhdq"
 
 
 def get_incremented_f2_ami_name(ami_name: str, increment: int) -> str:
