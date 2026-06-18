@@ -123,7 +123,8 @@ def firesim_tags_to_description(
 ):
     """Serialize the tags we want to set for storage in the AGFI description"""
     # note: the serialized rep still includes "triplets" for future manager versions to be compatible with old agfis
-    return f"""firesim-buildquintuplet:{build_quintuplet},firesim-deployquintuplet:{deploy_quintuplet},firesim-buildtriplet:{build_triplet},firesim-deploytriplet:{deploy_triplet},firesim-commit:{commit},firesim-buildmakefrag:{build_makefrag},firesim-deploymakefrag:{deploy_makefrag}"""
+    # warning: do not exceed 1000 characters in description, otherwise agfis build will not finish/fail to share.
+    return f"""firesim-buildquintuplet:{build_quintuplet},firesim-deployquintuplet:{deploy_quintuplet},firesim-buildtriplet:{build_triplet},firesim-deploytriplet:{deploy_triplet},firesim-commit:{commit}"""
 
 
 def firesim_description_to_tags(description):
