@@ -67,7 +67,7 @@ running them serially on one cloud FPGA.
 In this mode, FireSim also models a cycle-accurate network with parameterizeable
 bandwidth, link latency, and configurable topology to accurately model current and
 future datacenter-scale systems. For example, FireSim has been used to simulate 1024
-quad-core RISC-V Rocket Chip-based nodes, interconnected by a 200 Gbps, 2us Ethernet
+quad-core RISC-V Rocket Chip-based nodes, interconnected by a 200 Gbps, 2µs Ethernet
 network. To learn more about this use case, see our `ISCA 2018 paper
 <https://sagark.org/assets/pubs/firesim-isca2018.pdf>`__.
 
@@ -79,10 +79,8 @@ If you have other use-cases that we haven't covered, feel free to contact us!
 Non-Chipyard-based target simulation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-While most users use FireSim with Chipyard, users can also use FireSim seperately from
-Chipyard. For now the best example on how to do this is to follow along with how
-Chipyard is setup with FireSim. Soon we will release a guide on how to use FireSim by
-itself! Stay tuned!
+The recommended way (and most tested way) to use FireSim is with `Chipyard <https://ucb.bar/cydocs>`__. 
+However, users can also use FireSim seperately from Chipyard. For a guide, please see :doc:`/Advanced-Usage/FireSim-without-Chipyard`.
 
 Choose your platform to get started
 -----------------------------------
@@ -92,9 +90,7 @@ links to work through the getting started guide for your particular platform.
 
 - :doc:`/Getting-Started-Guides/AWS-EC2-F2-Getting-Started/index`
 
-  - Status: ✅ All FireSim Features Supported. ⚠️  F1 instances will be discontinued by AWS on Dec. 20, 2025.
-    We expect support for F1 instances and collateral (AMI's, etc) to slowly be removed/degraded over time.
-    For now, we recommend using on-premises FPGAs. **Stay tuned for AWS EC2 F2 updates**.
+  - Status: ⚠️ XDMA is not supported by AWS's EC2 F2 Shell, as of June 2026. We have implemented a mitigation; Impact: high speed FireSim bridges (e.g., TracerV) will function, but at a slower speed. **We are working with Amazon to introduce XDMA support.**
 
 - :doc:`/Getting-Started-Guides/On-Premises-FPGA-Getting-Started/Xilinx-Alveo-U200-FPGAs`
 

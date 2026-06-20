@@ -4,12 +4,12 @@ Setting up your Manager Instance
 Launching a "Manager Instance"
 ------------------------------
 
-.. warning::
+.. .. warning::
 
-    These instructions refer to fields in EC2's new launch instance wizard. Refer to
-    `version 1.13.4 <https://docs.fires.im/en/1.13.4/>`__ of the documentation for
-    references to the old wizard, being wary that specifics, such as the AMI ID
-    selection, may be out of date.
+..     These instructions refer to fields in EC2's new launch instance wizard. Refer to
+..     `version 1.13.4 <https://docs.fires.im/en/1.13.4/>`__ of the documentation for
+..     references to the old wizard, being wary that specifics, such as the AMI ID
+..     selection, may be out of date.
 
 Now, we need to launch a "Manager Instance" that acts as a "head" node that we will
 ``ssh`` or ``mosh`` into to work from. Since we will deploy the heavy lifting to
@@ -24,8 +24,8 @@ To launch a manager instance, follow these steps:
 2. In the *Launch FPGA Developer AMI (Ubuntu)* window:
 
    1. Set the launch method to *Launch from EC2 Console*. 
-   2. Set the version to *1.19.1*.
-      **If you do not change the version, you will likely get an incorrect version of the AMI.**
+   2. Set the version to ``1.19.1-prod-rhng4b6alkhdq``.
+      **If you do not change the version, you will likely get an incorrect version of the AMI; However, version changes to the last digit (i.e. 1.19.1 → 1.19.2) should not lead to any breaking changes and is fine to increment to.**
    
    3. Select the region that corresponds to the region you selected in :ref:`configuring-required-infrastructure-in-your-aws-account`.
    4. Click *Launch from EC2*. It should open a new tab in your browser with the launch instance page.
@@ -49,10 +49,10 @@ To launch a manager instance, follow these steps:
       is also fine if this group does not appear in your list).
 
 7.  In the *Configure storage* section, increase the size of the root volume to at least
-   300GB. The default of 120GB can quickly become too small as you accumulate large
-   Vivado reports/outputs, large waveforms, XSim outputs, and large root filesystems for
-   simulations. You should remove the small (5-8GB) secondary volume that is added by
-   default.
+    **300GB**. The default of 120GB can quickly become too small as you accumulate large
+    Vivado reports/outputs, large waveforms, XSim outputs, and large root filesystems for
+    simulations. You should remove the small (5-8GB) secondary volume that is added by
+    default.
 8.  In the *Advanced details* drop-down, change the following:
 
    1. Under *Termination protection*, select Enable. This adds a layer of protection to
