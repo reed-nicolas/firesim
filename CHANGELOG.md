@@ -2,6 +2,60 @@
 
 This changelog follows the format defined here: https://keepachangelog.com/en/1.0.0/
 
+## [1.21.0] - 2026-06-21
+
+FireSim 1.21.0 adds initial AWS F2 support, updates FPGA/local deployment infrastructure, refreshes key dependencies and documentation, and fixes several VCU118, XDMA, metasimulation, and workload issues. 
+
+FireSim is now returning to regular releases at a 3-4 month pace!
+
+### Added
+
+- Add AWS F2 instance support, including basic support for building F2 AGFIs and running single-node simulations (by @jkjkim in #1868)
+- Add additional F2 upstreaming fixes and remove vestigial driver debug behavior (by @rickydumplings in #1871)
+- Add back the `garnet-firesim` submodule (by @marie-anne-xu in #1878)
+- Pre-populate the `bare-base` workload (by @raghav-g13 in #1835)
+- Add a simple top-level counter example with clock, reset, and max-cycle timeout support (by @abejgonzalez in #1823)
+- Support pointing to makefrags in YAML (by @abejgonzalez in #1806)
+- Support using FIRRTL2 as input for Chipyard’s version of FireSim (by @abejgonzalez in #1804)
+- Decouple FireSim from Chipyard so Chipyard-based designs clone Chipyard first instead of relying on FireSim’s Chipyard submodule (by @abejgonzalez in #1791)
+
+### Changed
+
+- Fix F2 timing, PCI, shim, and manager issues, and bump the upstream `aws-fpga-firesim-f2` support to AWS FPGA 2.3.2 (by @sagark, implemented/co-authored by @marie-anne-xu  @rickydumplings in #1879)
+- Update `doc/README.md` to reflect that Python requirements are now handled by Conda (by @rasmus-madsen in #1866)
+- Update docs to point to the new XDMA flow (by @joonho3020 in #1858)
+- Update FireSim documentation, including XDMA/XVSEC driver guidance and AWS F1 EOL notes (by @abejgonzalez in #1844)
+- Update GitHub release automation by bumping `softprops/action-gh-release` from 2.0.8 to 2.2.0 (by @dependabot in #1843)
+- Update `utils/fireperf/FlameGraph` from `cd9ee4c` to `41fee1f` (by @dependabot in #1833)
+- Bump the VCU118 `garnet-firesim` dependency for a bug fix (by @raghav-g13 in #1827)
+- Bump `sim/rocket-chip` from `d0c6b50` to `1b9f433` (by @dependabot in #1826)
+- Bump to a newer version of Chipyard with documentation fixes (by @abejgonzalez in #1821)
+- Bump `sim/rocket-chip` from `50744b3` to `d0c6b50` (by @dependabot in #1819)
+- Bump `sim/diplomacy` from `6b7dc98` to `a042ff6` (by @dependabot in #1818)
+- Reformat Scala and Python code (by @abejgonzalez in #1814)
+- Bump `sim/rocket-chip` from `ea9979b` to `50744b3` (by @dependabot in #1812)
+- Bump `sim/berkeley-hardfloat` from `4225367` to `26f00d0` (by @dependabot in #1810)
+- Update AMI handling for the release (by @jimfangx)
+- Restrict AGFI descriptions to less than 1000 characters and fix typo (by @jimfangx)
+
+### Fixed
+
+- Fix FPGA enumeration failure for VCU118 (by @rasmus-madsen in #1880)
+- Fix `monitor_job_instance` to return all expected keys (by @Ferran-Hermida-Rivera in #1865)
+- Fix VCU118/local FPGA infrastructure issues, including hardcoded BDF handling, XDMA permission setup, missing XDMA script execution, and RHEL support (by @jimfangx in #1857)
+- Fix default Buildroot Linux example workload paths (by @abejgonzalez in #1832)
+- Switch EC2 setup to CentOS 7 vault archive repos (by @abejgonzalez in #1830)
+- Include 1.20.1 fixes (by @ffard-lbl in #1824)
+- Fix metasimulations by correctly resolving the makefrag path from runtime build recipe configuration (by @abejgonzalez in #1822)
+- Fix and add PointerChaser tests to CI (by @abejgonzalez in #1813)
+- Bump Conda lock requirements to fix broken AWS setup dependencies (by @abejgonzalez in #1805)
+
+### Removed
+
+- Remove checked-in Xilinx Aurora example design collateral from upstream (by @jimfangx in #1873)
+- Remove the Chipyard submodule from FireSim; Chipyard designs must clone Chipyard first (by @abejgonzalez in #1809)
+
+
 ## [1.20.1] - 2024-08-21
 
 Small QoL updates and fixes. Moves FireSim paper workloads to Chipyard.
