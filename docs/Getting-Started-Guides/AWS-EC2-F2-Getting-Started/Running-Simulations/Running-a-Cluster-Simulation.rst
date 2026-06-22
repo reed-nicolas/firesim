@@ -1,7 +1,7 @@
 .. _cluster-sim:
 
-Running a Cluster Simulation
-============================
+Running a Cluster Simulation [Coming soon on F2]
+================================================
 
 Now, let's move on to simulating a cluster of eight nodes, interconnected by a network
 with one 8-port Top-of-Rack (ToR) switch and 200 Gbps, 2μs links. This will require one

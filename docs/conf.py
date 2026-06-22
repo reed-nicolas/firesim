@@ -315,6 +315,6 @@ def cy_gh_file_ref_role(name, rawtext, text, lineno, inliner, options={}, conten
 
 def setup(app):
     # Add roles to simplify github reference generation
-    # app.add_role('gh-file-ref', fs_gh_file_ref_role)
-    # app.add_role('cy-gh-file-ref', cy_gh_file_ref_role)
+    app.add_role('gh-file-ref', fs_gh_file_ref_role)
+    app.add_role('cy-gh-file-ref', cy_gh_file_ref_role)
     app.connect('build-finished', copy_legacy_redirects)

@@ -65,6 +65,10 @@ class InstanceDeployManager(metaclass=abc.ABCMeta):
 
     parent_node: Inst
     nbd_tracker: Optional[NBDTracker]
+    # Not all platforms need enumeration
+    # but the guide still say to do enumeration - which will fail for those platforms
+    # make knob to skip for platforms that dynamically checks BDF
+    NEED_ENUMERATION: bool = True
 
     def __init__(self, parent_node: Inst) -> None:
         """
@@ -691,6 +695,7 @@ class EC2InstanceDeployManager(InstanceDeployManager):
                     capture=True,
                 )
                 if "-dirty" in aws_fpga_upstream_version:
+                    aws_fpga_upstream_version = aws_fpga_upstream_version.replace("-dirty", "")
                     rootLogger.critical(
                         "Unable to use local changes to aws-fpga. Continuing without them."
                     )
@@ -700,8 +705,8 @@ class EC2InstanceDeployManager(InstanceDeployManager):
                 )
             )
             with warn_only():
-                run("git clone https://github.com/firesim/aws-fpga-firesim-f2.git aws-fpga") #rh: "git clone https://github.com/aws/aws-fpga"
-                run("cd aws-fpga && git checkout " + aws_fpga_upstream_version) #rh: keep in mind that if ts says dirty it will fail but continue doing sdk_setup
+                run("git clone https://github.com/firesim/aws-fpga-firesim-f2.git aws-fpga")
+                run("cd aws-fpga && git checkout " + aws_fpga_upstream_version)
             with cd(f"/home/{os.environ['USER']}/aws-fpga"):
                 run("source sdk_setup.sh")
 
@@ -1354,6 +1359,7 @@ class XilinxVCU118InstanceDeployManager(InstanceDeployManager):
     garnet shell."""
 
     PLATFORM_NAME: Optional[str]
+    NEED_ENUMERATION = False
 
     def __init__(self, parent_node: Inst) -> None:
         super().__init__(parent_node)

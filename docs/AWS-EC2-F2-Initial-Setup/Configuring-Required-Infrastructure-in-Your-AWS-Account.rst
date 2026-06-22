@@ -10,9 +10,8 @@ Select a region
 
 Head to the `EC2 Management Console <https://console.aws.amazon.com/ec2/v2/home>`__. In
 the top right corner, ensure that the correct region is selected. You should select one
-of: ``us-east-1`` (N. Virginia), ``us-west-2`` (Oregon), ``ap-northeast-1`` (Tokyo), 
-``ap-northeast-2`` (Seoul), ``ap-southeast-2`` (Sydney), ``eu-central-1`` (Frankfurt), 
-``eu-west-2`` (London), since F2 instances are only available in those regions. 
+of: ``us-east-1`` (N. Virginia), ``us-west-2`` (Oregon), or ``eu-west-2`` (London),
+since F2 instances are only available in those regions.
 For the most current list of regions supporting F2 instance, see `Amazon EC2 instance types by Region
 <https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-instance-regions.html>`__.
 
@@ -49,11 +48,11 @@ instances that you can run at once, which will limit the size of simulations (e.
 number of parallel FPGAs) that you can run. If you need to increase your limits, follow
 the instructions below.
 
-To complete this guide, you need to have the following limits:
+To complete this guide, you need to have the following minimum limits:
 
-- ``Running On-Demand F instances``: 64 vCPUs.
+- ``Running On-Demand F instances``: 192 vCPUs.
 
-      - This is sufficient for 8 parallel FPGAs. Each 8 vCPUs = one FPGA.
+      - This is sufficient for 8 parallel FPGAs. Each 24 vCPUs = one FPGA.
 
 - ``Running On-Demand Standard (A, C, D, H, I, M, R, T, Z) instances``: 24 vCPUs.
 

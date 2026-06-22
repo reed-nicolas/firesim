@@ -222,12 +222,29 @@ class F2BitBuilder(BitBuilder):
         # do the rsync, but ignore any checkpoints that might exist on this machine
         # (in case builds were run locally)
         # extra_opts -l preserves symlinks
+        with prefix("cd ../"):
+            # use local version of aws_fpga on build farm nodes
+            aws_fpga_upstream_version = local(
+                "git -C platforms/f2/aws-fpga-firesim-f2 describe --tags --always --dirty",
+                capture=True,
+            )
+            if "-dirty" in aws_fpga_upstream_version:
+                aws_fpga_upstream_version = aws_fpga_upstream_version.replace("-dirty", "")
+                rootLogger.critical(
+                    "Unable to use local changes to aws-fpga. Continuing without them."
+                )
+
         run(f"mkdir -p {dest_f2_platform_dir}")
+        with prefix("cd " + dest_f2_platform_dir):
+            run("git clone https://github.com/firesim/aws-fpga-firesim-f2.git")
+        with prefix("cd " + dest_awsfpga_dir):
+            run("git checkout " + aws_fpga_upstream_version)
+
         rsync_cap = rsync_project(
             local_dir=local_awsfpga_dir,
             remote_dir=dest_f2_platform_dir,
             ssh_opts="-o StrictHostKeyChecking=no",
-            exclude=["hdk/cl/developer_designs/cl_*"],
+            exclude=["hdk/cl/developer_designs/cl_*", ".git", "hdk/common/ip", "hdk/common/shell_stable/hlx"],
             extra_opts="-l",
             capture=True,
         )
@@ -236,7 +253,7 @@ class F2BitBuilder(BitBuilder):
         rsync_cap = rsync_project(
             local_dir=f"{local_awsfpga_dir}/{fpga_build_postfix}/*",
             remote_dir=f"{dest_awsfpga_dir}/{fpga_build_postfix}",
-            exclude=["build/checkpoints"],
+            exclude=["build/checkpoints", ".git", "hdk/common/ip", "hdk/common/shell_stable/hlx"],
             ssh_opts="-o StrictHostKeyChecking=no",
             extra_opts="-l",
             capture=True,
